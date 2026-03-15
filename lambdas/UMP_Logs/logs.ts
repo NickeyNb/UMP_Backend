@@ -1,9 +1,7 @@
 import type { APIGatewayProxyEventV2 } from "aws-lambda";
-import { responseData } from "../utils/methodUtils.js";
+import { responseData } from "../../src/utils/methodUtils.js";
 
-export const logsHandler = async (
-  event: APIGatewayProxyEventV2,
-): Promise<void> => {
+export const handler = async (event: APIGatewayProxyEventV2): Promise<void> => {
   let body;
   if (event.body && typeof event.body === "string") {
     body = JSON.parse(event.body);

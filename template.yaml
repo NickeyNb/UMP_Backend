@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+# Globals:
+#   Function:
+#     Runtime: nodejs22.x
+#     Timeout: 10
+#     MemorySize: 256
+
+Resources:
+  UserLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs22.x
+      Handler: lambdas/UMP_User_management/user.handler
+      # CodeUri: .
+      CodeUri: dist
+      Timeout: 10
+
+  LogsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs22.x
+      Handler: lambdas/UMP_Logs/logs.handler
+      CodeUri: dist
+      Timeout: 10
+
+  S3ImageProcessor:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs22.x
+      Handler: lambdas/UMP_S3_image_processing/s3ImgProcessor.handler
+      CodeUri: dist
+      Timeout: 15

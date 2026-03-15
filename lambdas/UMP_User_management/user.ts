@@ -1,5 +1,5 @@
 import { hashSync } from "bcryptjs";
-import { dynamodbClient } from "../services/dynamodb.js";
+import { dynamodbClient } from "../../services/dynamodb.js";
 
 import {
   DeleteCommand,
@@ -8,11 +8,11 @@ import {
   ScanCommand,
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
-import { config } from "../config/env.js";
+import { config } from "../../src/config/env.js";
 import type { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
-import type { CreateUserInterface } from "../types/interface.js";
-import { responseData } from "../utils/methodUtils.js";
-import { sns } from "../services/sns.js";
+import type { CreateUserInterface } from "../../src/types/interface.js";
+import { responseData } from "../../src/utils/methodUtils.js";
+import { sns } from "../../services/sns.js";
 import { PublishCommand } from "@aws-sdk/client-sns";
 
 export const createUser = async (
@@ -36,6 +36,7 @@ export const createUser = async (
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
+    console.log("new user:", newUser);
     await dynamodbClient.send(
       new PutCommand({
         TableName: config.userTable,
@@ -195,7 +196,7 @@ export const deleteUser = async (
   }
 };
 
-export const userHandler = async (
+export const handler = async (
   // event: APIGatewayProxyEvent, // this is for rest api we are using http in api gateway
   event: APIGatewayProxyEventV2,
 ): Promise<APIGatewayProxyResult> => {

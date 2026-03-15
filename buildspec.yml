@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - npm install -g aws-sam-cli
+
+  pre_build:
+    commands:
+      - npm install
+
+  build:
+    commands:
+      - npm run build
+      - sam build
+
+  post_build:
+    commands:
+      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+
+artifacts:
+  files:
+    - "**/*"
