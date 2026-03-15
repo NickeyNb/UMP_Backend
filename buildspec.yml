@@ -4,8 +4,9 @@ phases:
   install:
     runtime-versions:
       nodejs: 22
+      python: 3.11
     commands:
-      - npm install -g aws-sam-cli
+      - pip install aws-sam-cli
 
   pre_build:
     commands:
